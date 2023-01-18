@@ -4,7 +4,7 @@ Labs for Bicep education
 
 ## Chapters
 
-1. **Setting your tools up**
+1. [**Setting your tools up**](./1.%20Setting%20up%20your%20resources/lab.md)
   - Installing VSCode
     - Plugins
   - Bicep CLI
