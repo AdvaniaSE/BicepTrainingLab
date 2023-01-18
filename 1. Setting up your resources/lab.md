@@ -17,11 +17,12 @@ Installing a plugin is done by clicking the `Extensions` button in VSCode
 In order for VSCode to work with bicep files we recommend installing the following plugins.
 
 - Bicep, by Microsoft
-![The bicep extension](./images/bicepExtension.png)
 
+![The bicep extension](./images/bicepExtension.png)
 
 TODO: Stefan - Behöver man denna för att köra `Insert resource`?
 - Azure Account, by Microsoft
+
 ![Azure account extension](./images/azureAccountExtension.png)
 
 ## Azure PowerShell modules and az cli
@@ -38,3 +39,7 @@ You can find installation methods for these tools here
 [Azure PowerShell](https://learn.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-9.3.0)
 
 [Manually installing the bicep CLI](https://learn.microsoft.com/en-gb/azure/azure-resource-manager/bicep/install#install-manually)
+
+## More information
+
+[Bicep tools at MS Learn](https://learn.microsoft.com/en-gb/azure/azure-resource-manager/bicep/install)
