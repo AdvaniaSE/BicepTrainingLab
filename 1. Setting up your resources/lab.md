@@ -25,6 +25,18 @@ TODO: Stefan - Behöver man denna för att köra `Insert resource`?
 
 ![Azure account extension](./images/azureAccountExtension.png)
 
+### Bicep extension commands
+
+The Bicep extension in VSCode comes with a number of built in commands. You can find them all by clicking:
+
+> `F1`, or `CTRL + Shift + P`, or `View -> Command palette` in VSCode in windows
+
+> TODO: Hur kommer man åt command menyn på en äppeldator, Stefan?
+
+Once you have opened the command palette you type `bicep` to see all available commands.
+
+![Listing available commands in VSCode](./images/bicepCommands.png)
+
 ## Azure PowerShell modules and az cli
 
 Apart from VSCode you may also use CLI tools to work with bicep.
