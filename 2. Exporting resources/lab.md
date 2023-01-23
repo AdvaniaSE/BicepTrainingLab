@@ -11,11 +11,11 @@ In many cases you will already have a resource similar to the one you created in
 
 > Note: The recommended settings here are _NOT_ for production use. The setup is primarily for easy access and low cost lab. Production workloads may require higher levels of security, faster access, and better redundancy.
 
-1. Log in to Azure
-2. Select `Create a resource`
-3. In the marketplace, search for `Storage account`, and select the `storage account`resource by Microsoft from the list
-4. Click `Create`
-5. Recommended settings for our lab are
+- Log in to Azure
+- Select `Create a resource`
+- In the marketplace, search for `Storage account`, and select the `storage account`resource by Microsoft from the list
+- Click `Create`
+- Recommended settings for our lab are
   - Basics
     - Create a new resource group
     - Choose a region close to you, for example 'West Europe' or 'Sweden Central'
@@ -28,7 +28,7 @@ In many cases you will already have a resource similar to the one you created in
     - Network access: Enable public access from all networks
   - Data protection
     - Uncheck all soft delete checkboxes.
-6. Click `Create`
+- Click `Create`
 
 ## Exporting the resource to Visual Studio Code
 
@@ -42,17 +42,17 @@ The bicep extension for VSCode includes the `Insert resource` command. You can u
 
 To do this you need to know the resource id of the resource you want to export. You can get this id through the portal, using Azure PowerShell, or as described here, using the az cli
 
-1. If not already open, open the console in VSCode by clicking `Ctrl+ö`, or `View -> terminal`
-2. Run the command `az login` to connect to your azure subscription
-3. Run the command `az resource show --resource-type "Microsoft.Storage/storageAccounts" -g "<your resource group>" -n "<Name of your storage account>" --query 'id'`
+- If not already open, open the console in VSCode by clicking `Ctrl+ö`, or `View -> terminal`
+- Run the command `az login` to connect to your azure subscription
+- Run the command `az resource show --resource-type "Microsoft.Storage/storageAccounts" -g "<your resource group>" -n "<Name of your storage account>" --query 'id'`
 
 > Tip: you can pipe the output of this command directly to your clip board by adding "`| clip`" to the end of the command on windows.
 
 Once you have found the id of your resource you can insert it to your VSCode session.
 
-1. Open the Command palette in VSCode as described in [lab number 1](../1.%20Setting%20up%20your%20resources/lab.md)
-2. in the search window, type `Insert resource`
-3. Paste, or type, the resource id of the resource to import _without quotation marks_
+- Open the Command palette in VSCode as described in [lab number 1](../1.%20Setting%20up%20your%20resources/lab.md)
+- in the search window, type `Insert resource`
+- Paste, or type, the resource id of the resource to import _without quotation marks_
 
 > **Note:** The bicep extension uses a strict order of account credentials to authenticate to Azure. If you have problems authenticating to azure try closing and re-opening VSCode, and _only_ authenticate using `az login` (not Azure PowerShell or the Azure.Account extension)
 
@@ -60,17 +60,17 @@ Once you have found the id of your resource you can insert it to your VSCode ses
 
 Another way of exporting a template is the export functionality in Azure.
 
-1. Find your resource blade in the [Azure portal](https://portal.azure.com)
-2. In the left menu tree under the `Automation` headline, go to `Export template`
-3. Click the `Download` button to save a zip file containing your template and parameters file to your computer
-4. Extract the downloaded zip file
+- Find your resource blade in the [Azure portal](https://portal.azure.com)
+- In the left menu tree under the `Automation` headline, go to `Export template`
+- Click the `Download` button to save a zip file containing your template and parameters file to your computer
+- Extract the downloaded zip file
 
 ![Downloading a template from the Azure portal](./images/exportTemplate.png)
 
 Start working with your template in VSCode
-1. Open a new VSCode window by clicking `File -> New window`
-2. Open your downloaded template folder by clicking `File -> Open folder`, browse to, and select your folder.
-3. In the explorer sidebar, right click `template.json` and select `Decompile into Bicep`. This will add a new file to your folder named `template.bicep`
+- Open a new VSCode window by clicking `File -> New window`
+- Open your downloaded template folder by clicking `File -> Open folder`, browse to, and select your folder.
+- In the explorer sidebar, right click `template.json` and select `Decompile into Bicep`. This will add a new file to your folder named `template.bicep`
 
 > **Note:** If no explorer sidebar is visible, you can open it by clicking the icon with two pages seen below, or click `View -> Explorer`, Or `Ctrl+Shift+E`
 
@@ -80,11 +80,11 @@ Start working with your template in VSCode
 
 It is also possible to create a base template in the Azure portal _without_ creating the actual resource. The process is similar to `Using Azure portal export`, yet requires a couple of extra steps.
 
-1. In the [Azure portal](https://portal.azure.com), click `Create a resource`
-2. Search the marketplace for `storage account`and select `Create` on the `Storage account` app from Microsoft.
-3. Use the settings from `Creating a storage account in Azure`, but after `Validation`, do _NOT_ click the `Create` button. Instead, click the `Download a template for automation` link.
-4. In the `template` window, click `Download`
-5. Continue from step 4 in `Using Azure portal export` - "Extract the downloaded zip file"
+- In the [Azure portal](https://portal.azure.com), click `Create a resource`
+- Search the marketplace for `storage account`and select `Create` on the `Storage account` app from Microsoft.
+- Use the settings from `Creating a storage account in Azure`, but after `Validation`, do _NOT_ click the `Create` button. Instead, click the `Download a template for automation` link.
+- In the `template` window, click `Download`
+- Continue from step 4 in `Using Azure portal export` - "Extract the downloaded zip file"
 
 ## Cleaning up an exported or created resource
 
@@ -102,8 +102,8 @@ Finding allowed and default values can be done in multiple ways, and there will 
 
 #### Using the documentation
 
-1. Hover your mouse over the _name_ of the resource you're interested in to get help on.
-2. Click the `View Type Documentation` link to open the online documentation in your default browser.
+- Hover your mouse over the _name_ of the resource you're interested in to get help on.
+- Click the `View Type Documentation` link to open the online documentation in your default browser.
 
 ![View type documentation from the VSCode plugin](./images/hoverViewTypeDocumentation.png)
 
@@ -125,30 +125,68 @@ You can in many cases also get property information by using the built in VSCode
 
 ### Using parameters
 
-In order to make the template easier to reuse there are some values that the export hard coded that you will want to have as parameters.
+#### Location
 
-One such example is the `Location` parameter.
+In order to make the template easier to reuse there are some values that the export hard coded that you will want to have as parameters. One such example is the `Location` parameter. Use the `Quick fix` function to automatically fix this.
+
+- In the hover window, click the `Quick Fix...` button to automatically create a parameter and set the values correct.
 
 ![Hovering over the _yellow squiggly_ will tell you this should be a parameter](./images/hoverLocationHardcoded.png)
 
-In the hover window, click the `Quick Fix...` button to automatically create a parameter and set the values correct.
+#### Container name
 
-In our template we have one container set up. The export hard coded this container name as `mycontainer`, but in order to make the template reusable we will want the end user to set this.
+In our template we have one container set up. The export hard coded this container name as `mycontainer`.
 
-1. Create a parameter in the top of the bicep file - `param containerName string`
+In order to make the template reusable, change the template so the end user can set this value.
 
-2. Replace the value of the name key with the parameter - `name: containerName`
+- Create a parameter in the top of the bicep file named `containerName` and with the type `string`
+- Replace the value of the `name` key in the `containers` resource with the parameter
+- Since no default value is given to this parameter, add it as a parameter with a default value in the parameters file.
 
-3. Since no default value is given to this parameter, add it as a parameter with a default value in the parameters file.
+```Bicep
+// Only changed or added values are displayed here
+param containerName string
+// ----
+name: containerName
+// ----
+```
+
+#### Storage account SKU
+
+Some values may have a list of possible values where we want to allow users to select one, yet restrict the input to predefined values. Create a parameter for the Storage account SKU that allows you to set any possible value in the parameter file.
+
+- Create a new parameter called `storageAccountSku` of type `string`
+- Set the value of the Storage accounts `sku` `name` key to this parameter
+- Use the [`@allowed`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#allowed-values) decorator to only allow input of [available SKUs](https://learn.microsoft.com/en-gb/azure/templates/microsoft.storage/storageaccounts?tabs=bicep&pivots=deployment-language-bicep#sku)
+
+```Bicep
+// Only changed or added values are displayed here
+@allowed([
+  'Premium_LRS'
+  'Premium_ZRS'
+  'Standard_GRS'
+  'Standard_GZRS'
+  'Standard_LRS'
+  'Standard_RAGRS'
+  'Standard_RAGZRS'
+  'Standard_ZRS' 
+])
+param storageAccountSku string 
+// ----
+name: containerName
+// ----
+```
 
 ### Using Variables
 
 When deploying templates we often construct properties based on input. For example we may want to use [Azure naming conventions](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming#example-names-general) based on the name parameter.
 
-1. Add a parameter called `baseName` as a required parameter. For ease of use, give it a good description using the `@description` decorator. Remember to add it to the parameter file as well.
-2. Add a variable called `saName` following the [storage account naming convention](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming#example-names-storage) using string interpolation.
-3. Change the storage account to use the variable instead of a parameter
-4. Remove the now unused parameter from the template and the parameter file.
+Use variables to standardize the name of your storage account using a name parameter and a variable.
+
+- Add a parameter called `baseName` as a required parameter. For ease of use, give it a good description using the [`@description` decorator](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters#description). Remember to add it to the parameter file as well.
+- Add a variable called `saName` following the [storage account naming convention](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming#example-names-storage) using string interpolation.
+- Set the value of the Storage accounts `name` key to this parameter
+- Remove the now unused parameter from the template and the parameter file.
 
 ```Bicep
 // Only changed or added values are displayed here
@@ -163,4 +201,24 @@ name: saName
 
 ### Using Functions
 
-## Creating a sub resource by using the Azure portal template creator
+Some resources have special requirements for parameter values, such as:
+
+- Storage account name must be globally unique
+- Storage account name must be between 3-24 characters, and only contain lower case characters and numbers
+
+Using [bicep functions](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions), create a new variable for the storage account name that will enforce both of the above mentioned rules.
+
+- Create a new variable called `unique`
+- use the [`uniqueString`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-string#uniquestring) function and use the [`resourceGroup`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-scope#resourcegroup) function as parameter to create a globally unique string
+- Create a new variable called `globalyUniqueSAName` that:
+  - Joins the `unique` variable with the `saName` variable using string interpolation
+  - Uses the [`take`](https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-functions-array#take) function to make sure the maximum length of the string is 24 characters
+- Replace the value of the Storage accounts `name` key to use the `globalyUniqueSAName` parameter
+
+```Bicep
+// Only changed or added values are displayed here
+var unique = uniqueString(resourceGroup().name)
+var globalyUniqueSAName = take('${unique}${saName}', 24)
+// ----
+name: globalyUniqueSAName
+```

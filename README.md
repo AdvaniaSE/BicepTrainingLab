@@ -21,7 +21,6 @@ Labs for Bicep education
     - Using parameters
     - Using Variables
     - Using Functions
-  - Creating a sub resource by using the Azure portal template creator
 
 3. **Creating resources from scratch in Visual Studio Code**
   - Creating a storage account using Visual Studio Code snippets

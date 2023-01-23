@@ -6,13 +6,28 @@ param containerName string
 @description('This name will be the base of which all other resources will be calculated')
 param baseName string
 
+@allowed([
+  'Premium_LRS'
+  'Premium_ZRS'
+  'Standard_GRS'
+  'Standard_GZRS'
+  'Standard_LRS'
+  'Standard_RAGRS'
+  'Standard_RAGZRS'
+  'Standard_ZRS' 
+])
+param storageAccountSku string 
+
 var saName = 'sa${baseName}'
 
+var unique = uniqueString(resourceGroup().name)
+var globalyUniqueSAName = take('${unique}${saName}', 24)
+
 resource storageAccounts_mystorageaccount_name_resource 'Microsoft.Storage/storageAccounts@2022-05-01' = {
-  name: saName
+  name: globalyUniqueSAName
   location: location
   sku: {
-    name: 'Standard_LRS'
+    name: storageAccountSku
   }
   kind: 'StorageV2'
   properties: {
@@ -43,10 +58,6 @@ resource storageAccounts_mystorageaccount_name_resource 'Microsoft.Storage/stora
 resource storageAccounts_mystorageaccount_name_default 'Microsoft.Storage/storageAccounts/blobServices@2022-05-01' = {
   parent: storageAccounts_mystorageaccount_name_resource
   name: 'default'
-  sku: {
-    name: 'Standard_LRS'
-    tier: 'Standard'
-  }
   properties: {
     cors: {
       corsRules: []
@@ -61,10 +72,6 @@ resource storageAccounts_mystorageaccount_name_default 'Microsoft.Storage/storag
 resource Microsoft_Storage_storageAccounts_fileServices_storageAccounts_mystorageaccount_name_default 'Microsoft.Storage/storageAccounts/fileServices@2022-05-01' = {
   parent: storageAccounts_mystorageaccount_name_resource
   name: 'default'
-  sku: {
-    name: 'Standard_LRS'
-    tier: 'Standard'
-  }
   properties: {
     protocolSettings: {
       smb: {
@@ -111,8 +118,4 @@ resource storageAccounts_mystorageaccount_name_default_mycontainer 'Microsoft.St
     denyEncryptionScopeOverride: false
     publicAccess: 'None'
   }
-  dependsOn: [
-
-    storageAccounts_mystorageaccount_name_resource
-  ]
 }
