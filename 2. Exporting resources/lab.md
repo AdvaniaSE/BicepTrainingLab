@@ -74,15 +74,92 @@ Start working with your template in VSCode
 
 > **Note:** If no explorer sidebar is visible, you can open it by clicking the icon with two pages seen below, or click `View -> Explorer`, Or `Ctrl+Shift+E`
 
-![Decmpile to bicep in the explorer sidebar](./images/decompileSidebar.png)
+![Decompile into bicep in the explorer sidebar](./images/decompileSidebar.png)
 
 ## Creating a template in the portal
 
-## Cleaning up an exported resource
+It is also possible to create a base template in the Azure portal _without_ creating the actual resource. The process is similar to `Using Azure portal export`, yet requires a couple of extra steps.
+
+1. In the [Azure portal](https://portal.azure.com), click `Create a resource`
+2. Search the marketplace for `storage account`and select `Create` on the `Storage account` app from Microsoft.
+3. Use the settings from `Creating a storage account in Azure`, but after `Validation`, do _NOT_ click the `Create` button. Instead, click the `Download a template for automation` link.
+4. In the `template` window, click `Download`
+5. Continue from step 4 in `Using Azure portal export` - "Extract the downloaded zip file"
+
+## Cleaning up an exported or created resource
+
+While exporting resources is a great way to start, In many cases you get a lot more in your templates than needed. The configurations may also not always be as flexible or reusable as you want them.
+
+This lab will look at some ways to simplify your templates and make them easier to reuse.
+
+You can find the initial templates, and the end results, in the subfolder named `templates`
+
+### General clean-up
+
+Lots of the data you get from an exported template is actually the default values of properties, and not necessary to set unless you want to change those values.
+
+Finding allowed and default values can be done in multiple ways, and there will be many keys and values to remove outside of the two examples provided. Try to clean as much as possible before looking at the result template.
+
+#### Using the documentation
+
+1. Hover your mouse over the _name_ of the resource you're interested in to get help on.
+2. Click the `View Type Documentation` link to open the online documentation in your default browser.
+
+![View type documentation from the VSCode plugin](./images/hoverViewTypeDocumentation.png)
+
+> Hint: Make sure the `Bicep` button is highlighted in the `Choose a deployment language` box to get the correct help documentation.
+
+In [the documentation for the storage account resource type](https://learn.microsoft.com/en-gb/azure/templates/microsoft.storage/storageaccounts?tabs=bicep&pivots=deployment-language-bicep#storageaccountpropertiescreateparametersorstorageaccountproperties) we can see that the value for `allowBlobPublicAccess` is default set to `true`. Since the value in our template is the same, and this is not a mandatory parameter we can remove this setting completely.
+
+We can also see that the `Sku` array contains a `tier` key, but [no such key is listed in the documentation](https://learn.microsoft.com/en-gb/azure/templates/microsoft.storage/storageaccounts?tabs=bicep&pivots=deployment-language-bicep#sku). Hovering over the _yellow squiggly_ line tells us that this is a read only property and we can safely remove it.
+
+![squiggly giving a hint that this property should be verified before deploy](./images/hoverTierPropertyIssue.png)
+
+#### Using VSCode built in documentation
+
+You can in many cases also get property information by using the built in VSCode functionality.
+
+- Hovering over the `SupportsHTTPSTrafficOnly` key gives us the same information [found in the documentation](https://learn.microsoft.com/en-gb/azure/templates/microsoft.storage/storageaccounts?tabs=bicep&pivots=deployment-language-bicep#storageaccountpropertiescreateparametersorstorageaccountproperties). Since we are working with API version `2022-05-01` we can safely remove this setting.
+
+![Hovering show us the default is true](./images/hoverHTTPSTraffic.png)
 
 ### Using parameters
 
+In order to make the template easier to reuse there are some values that the export hard coded that you will want to have as parameters.
+
+One such example is the `Location` parameter.
+
+![Hovering over the _yellow squiggly_ will tell you this should be a parameter](./images/hoverLocationHardcoded.png)
+
+In the hover window, click the `Quick Fix...` button to automatically create a parameter and set the values correct.
+
+In our template we have one container set up. The export hard coded this container name as `mycontainer`, but in order to make the template reusable we will want the end user to set this.
+
+1. Create a parameter in the top of the bicep file - `param containerName string`
+
+2. Replace the value of the name key with the parameter - `name: containerName`
+
+3. Since no default value is given to this parameter, add it as a parameter with a default value in the parameters file.
+
 ### Using Variables
+
+When deploying templates we often construct properties based on input. For example we may want to use [Azure naming conventions](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming#example-names-general) based on the name parameter.
+
+1. Add a parameter called `baseName` as a required parameter. For ease of use, give it a good description using the `@description` decorator. Remember to add it to the parameter file as well.
+2. Add a variable called `saName` following the [storage account naming convention](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming#example-names-storage) using string interpolation.
+3. Change the storage account to use the variable instead of a parameter
+4. Remove the now unused parameter from the template and the parameter file.
+
+```Bicep
+// Only changed or added values are displayed here
+@description('This name will be the base of which all other resources will be calculated')
+param baseName string
+// ----
+var saName = 'sa${baseName}'
+// ----
+name: saName
+// ----
+```
 
 ### Using Functions
 

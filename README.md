@@ -15,7 +15,9 @@ Labs for Bicep education
   - Exporting the resource to Visual Studio Code
     - Using the VSCode bicep extension
     - Using Azure portal export
-  - Cleaning up an exported resource
+  - Creating a template in the portal
+  - Cleaning up an exported or created resource
+    - General clean-up
     - Using parameters
     - Using Variables
     - Using Functions
