@@ -10,7 +10,7 @@ Labs for Bicep education
   - Bicep CLI
   - Azure PowerShell modules
 
-2. [**Exporting resources**](2.%20Exporting%20resources/lab.md)
+2. [**Exporting resources**](./2.%20Exporting%20resources/lab.md)
   - Creating a storage account in Azure
   - Exporting the resource to Visual Studio Code
     - Using the VSCode bicep extension
@@ -22,11 +22,13 @@ Labs for Bicep education
     - Using Variables
     - Using Functions
 
-3. **Creating resources from scratch in Visual Studio Code**
+3. [**Creating resources in Visual Studio Code**](./3.%20Creating%20resources%20in%20VSCode/lab.md)
   - Creating a storage account using Visual Studio Code snippets
-    - Alt + Space
+  - IntelliSense
     - Required Properties
-  - Nested resources - Adding a blob container
+  - Formatting
+  - Visualizer
+  - Parameter file generating
 
 4. **Modules and Scoped deployments**
   - Adding a resource group template
