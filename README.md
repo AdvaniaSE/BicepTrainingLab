@@ -1,14 +1,15 @@
 # BicepTrainingLab
 
-Labs for Bicep education
+Lab material for Advanias Bicep training course.
 
 ## Chapters
 
 1. [**Setting your tools up**](./1.%20Setting%20up%20your%20resources/lab.md)
   - Installing VSCode
-    - Plugins
+    - Extensions
   - Bicep CLI
   - Azure PowerShell modules
+  - Azure CLI
 
 2. [**Exporting resources**](./2.%20Exporting%20resources/lab.md)
   - Creating a storage account in Azure
