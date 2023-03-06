@@ -1,23 +1,24 @@
 # Exporting resources
 
-There are many different ways to get started creating bicep templates.
+There are many different ways to get started creating Bicep templates.
 In this lab we will look at different ways to use the Azure portal to help us create a bicep resource.
 
-In order to do this we will need access to an Azure account with a connected subscription. If you do not have one you can sign up for a free evaluation account with 200$ credit [here](https://azure.microsoft.com/en-us/free/)
+In order to do this we will need access to an Azure account with a connected subscription. If you do not have one you can sign up for a free evaluation account with 200$ credit [here](https://azure.microsoft.com/en-us/free/).
 
 ## Creating a storage account in Azure
 
-In many cases you will already have a resource similar to the one you created in your Azure environment. Maybe you lift and shifted a server room, or you used to portal to test your design. In this lab we will simulate this scenario by first creating an Azure storage account in our Azure subscription.
+In many cases you will already have resources in Azure that have been created without the use of Infrastructure as Code(IaC). Maybe you lift and shifted servers from On-Premises, or you used the Azure Portal to test different services. In this lab we will simulate this scenario by first creating an Azure storage account in our Azure subscription using the portal.
 
-> Note: The recommended settings here are _NOT_ for production use. The setup is primarily for easy access and low cost lab. Production workloads may require higher levels of security, faster access, and better redundancy.
+> Note: The recommended settings here are _NOT_ for production use. The setup is primarily for easy access and low cost lab. Production workloads may require higher levels of security, faster access, and better redundancy options.
 
-- Log in to Azure
+- Log in to the Azure Portal using a web browser, [https://portal.azure.com/](https://portal.azure.com/)
 - Select `Create a resource`
 - In the marketplace, search for `Storage account`, and select the `storage account`resource by Microsoft from the list
 - Click `Create`
 - Recommended settings for our lab are
   - Basics
     - Create a new resource group
+    - Specify a globally unique name for your storage account
     - Choose a region close to you, for example 'West Europe' or 'Sweden Central'
     - Performance: Standard
     - Redundancy: Locally-redundant storage (LRS)
@@ -38,23 +39,35 @@ Once you have a resource set up in Azure there are a number of ways of retrievin
 
 > **NOTE:** At the time of this writing there is [a bug in the VSCode extension](https://github.com/Azure/bicep/issues/9241) that causes this to not work in some cases. If this case doesn't work, please continue to the next lab.
 
-The bicep extension for VSCode includes the `Insert resource` command. You can use this to directly export a resource from your Azure environment to your VSCode session.
+The Bicep extension for VSCode includes the `Insert resource` command. You can use this to directly export a resource from your Azure environment to your VSCode session.
 
-To do this you need to know the resource id of the resource you want to export. You can get this id through the portal, using Azure PowerShell, or as described here, using the az cli
+To do this you need to know the resource id of the resource you want to export. You can get this id through the portal, using Azure PowerShell, or as described here, using the Azure CLI.
 
-- If not already open, open the console in VSCode by clicking `Ctrl+ö`, or `View -> terminal`
+- If not already open, open the console in VSCode by clicking `Ctrl+ö (Windows)`, `Control⌃ + Shift⇧ +´(macOS)`, or `View -> terminal`
+
+**Azure CLI:**
 - Run the command `az login` to connect to your azure subscription
 - Run the command `az resource show --resource-type "Microsoft.Storage/storageAccounts" -g "<your resource group>" -n "<Name of your storage account>" --query 'id'`
 
-> Tip: you can pipe the output of this command directly to your clip board by adding "`| clip`" to the end of the command on windows.
+> Tip: you can pipe the output of this command directly to your clipboard by adding "`| clip`" to the end of the command on windows.
+
+>Note: If you have access to multiple subscriptions you need to select the subscription you want to work with using: `az account set --subscription <subscription id>`
+
+**Azure PowerShell:**
+- Run the command `Connect-AzAccount` to connect to your azure subscription
+- Run the command `(Get-AzResource -ResourceGroupName "<your resource group>" -Name "<Name of your storage account>").ResourceId`
+
+> Tip: you can pipe the output of this command directly to your clipboard by adding "`| Set-Clipboard`" to the end of the command on windows.
+
+>Note: If you have access to multiple subscriptions you need to select the subscription you want to work with using: `Select-AzAccount -SubscriptionId <subscription id>`
 
 Once you have found the id of your resource you can insert it to your VSCode session.
 
 - Open the Command palette in VSCode as described in [lab number 1](../1.%20Setting%20up%20your%20resources/lab.md)
-- in the search window, type `Insert resource`
+- In the search window, type `Insert resource`
 - Paste, or type, the resource id of the resource to import _without quotation marks_
 
-> **Note:** The bicep extension uses a strict order of account credentials to authenticate to Azure. If you have problems authenticating to azure try closing and re-opening VSCode, and _only_ authenticate using `az login` (not Azure PowerShell or the Azure.Account extension)
+> **Note:** The bicep extension uses a strict order of account credentials to authenticate to Azure. If you have problems authenticating to azure try closing and re-opening VSCode, and _only_ authenticate using Azure CLI `az login` or Azure PowerShell `Connect-AzAccount`. The default behavior in Bicep is to pick the authentcation token from Azure CLI first, then if not found use the token from Azure PowerShell. This is configurable using a `bicepconfig.json` file.
 
 ### Using Azure portal export
 
@@ -72,7 +85,7 @@ Start working with your template in VSCode
 - Open your downloaded template folder by clicking `File -> Open folder`, browse to, and select your folder.
 - In the explorer sidebar, right click `template.json` and select `Decompile into Bicep`. This will add a new file to your folder named `template.bicep`
 
-> **Note:** If no explorer sidebar is visible, you can open it by clicking the icon with two pages seen below, or click `View -> Explorer`, Or `Ctrl+Shift+E`
+> **Note:** If no explorer sidebar is visible, you can open it by clicking the icon with two pages seen below, or click `View -> Explorer`, Or `Ctrl+Shift+E (Windows)`, or `Shift+Command+E (macOS)`
 
 ![Decompile into bicep in the explorer sidebar](./images/decompileSidebar.png)
 
