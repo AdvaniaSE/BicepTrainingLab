@@ -41,7 +41,7 @@ Once you have a resource set up in Azure there are a number of ways of retrievin
 
 The Bicep extension for VSCode includes the `Insert resource` command. You can use this to directly export a resource from your Azure environment to your VSCode session.
 
-To do this you need to know the resource id of the resource you want to export. You can get this id through the portal, using Azure PowerShell, or as described here, using the Azure CLI.
+To do this you need to know the resource id of the resource you want to export. You can get this id through the portal, using Azure PowerShell, using the Azure CLI, all options are described below.
 
 - If not already open, open the console in VSCode by clicking `Ctrl+ö (Windows)`, `Control⌃ + Shift⇧ +´(macOS)`, or `View -> terminal`
 
@@ -60,6 +60,11 @@ To do this you need to know the resource id of the resource you want to export. 
 > Tip: you can pipe the output of this command directly to your clipboard by adding "`| Set-Clipboard`" to the end of the command on windows.
 
 >Note: If you have access to multiple subscriptions you need to select the subscription you want to work with using: `Select-AzAccount -SubscriptionId <subscription id>`
+
+**Azure Portal:**
+- Navigate to the resource in the Azure portal.
+- Click on JSON view in the top right corner
+- Copy the Resource ID to your clipboard
 
 Once you have found the id of your resource you can insert it to your VSCode session.
 
