@@ -102,6 +102,8 @@ This will generate a parameters file with all your required parameters in the sa
 
 Now that you have a template file and a matching parameter file it's time to deploy the storage account to Azure. Templates can be deployed directly from VS Code or by using command line. In this part of the lab we will explore all options.
 
+Before you start, open your parameter file and make sure you have a value specified for the name parameter.
+
 ### Deploy templates using VSCode
 
 The simplest way to get started with template deployments is to stay in VS Code where the template has been authored.
@@ -117,4 +119,29 @@ The simplest way to get started with template deployments is to stay in VS Code 
 - Select the matching parameter file from the dropdown, and select `Use value of "resourceGroup().location"` when prompted.
 - The deployment have now been created.
 
+### Deploy templates using Azure PowerShell
+
+- If not already open, open the console in VSCode by clicking `Ctrl+ö (Windows)`, `Control⌃ + Shift⇧ +´(macOS)`, or `View -> terminal`
+
+**Azure PowerShell:**
+- Run the command `Connect-AzAccount` to connect to your azure subscription
+- Create a new resource group using the command `New-AzResourceGroup -Name "bicep-masterclass-rg" -Location "West Europe"`
+- Create a new deployment by using the command `New-AzResourceGroupDeployment -ResourceGroupName "bicep-masterclass-rg" -TemplateFile <path to your template> -TemaplateParameterFile <path to your parameter file>`
+
+>Note: If you have access to multiple subscriptions you need to select the subscription you want to work with using: `Select-AzAccount -SubscriptionId <subscription id>`
+
+**Azure CLI:**
+- Run the command `az login` to connect to your azure subscription
+- Create a new resource group using the command `az group create -l westeurope -n bicep-masterclass-rg`
+- Create a new deployment by using the command `az deployment group create -g bicep-masterclass-rg --template-file <path to template> --parameters <path to parameters file>`
+
+>Note: If you have access to multiple subscriptions you need to select the subscription you want to work with using: `az account set --subscription <subscription id>`
+
+#### Verify deployment status
+
+After you have created the deployment, navigate to the Azure Portal and go to the resource group `bicep-masterclass-rg`. In the top right corner you will find the heading `Deployments` with value of `1 Succeded` click on it to navigate to the deployments view.
+
+![deployment status](./images/deploymentStatus.png)
+
+Here you will find all deployments created targeted to this specific resource group. Click on the deployment and investigate the details. Head back to the resource group and verify that you can see a storage account.
 
