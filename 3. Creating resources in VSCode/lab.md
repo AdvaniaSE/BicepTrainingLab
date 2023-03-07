@@ -97,3 +97,24 @@ Once the template is done we should have a matching parameter file to go with it
 - Right click your template in the file explorer of VSCode and select `Generate parameters file`
 
 This will generate a parameters file with all your required parameters in the same folder as the template. If a parameter has a default value it will not be included in the parameters file, but has to be added afterwards.
+
+## Deploying templates to Azure
+
+Now that you have a template file and a matching parameter file it's time to deploy the storage account to Azure. Templates can be deployed directly from VS Code or by using command line. In this part of the lab we will explore all options.
+
+### Deploy templates using VSCode
+
+The simplest way to get started with template deployments is to stay in VS Code where the template has been authored.
+
+- Right click on the template that you created in the steps above.
+- Click on `Deploy bicep file`.
+- You will be presented with a couple of options, the first one is the name of the deployment. Keep the default value and press `Enter`.
+- If you're not signed in to Azure in the `Azure Accounts` extension allready, pick `Sign in to Azure` and authenticate using a web browser.
+- Select the subscription where you want to deploy the template.
+- You will be prompted to create or select a resource group, choose `Create new Resource Group`.
+- Type in `bicep-masterclass-rg` and hit enter.
+- Select an Azure region of your choice, e.g. `West Europe`
+- Select the matching parameter file from the dropdown, and select `Use value of "resourceGroup().location"` when prompted.
+- The deployment have now been created.
+
+
