@@ -69,7 +69,7 @@ To do this you need to know the resource id of the resource you want to export. 
 Once you have found the id of your resource you can insert it to your VSCode session.
 
 - Open the Command palette in VSCode as described in [lab number 1](../1.%20Setting%20up%20your%20resources/lab.md)
-- In the search window, type `Insert resource`
+- In the search window, type `Bicep: Insert resource`
 - Paste, or type, the resource id of the resource to import _without quotation marks_
 
 > **Note:** The bicep extension uses a strict order of account credentials to authenticate to Azure. If you have problems authenticating to azure try closing and re-opening VSCode, and _only_ authenticate using Azure CLI `az login` or Azure PowerShell `Connect-AzAccount`. The default behavior in Bicep is to pick the authentcation token from Azure CLI first, then if not found use the token from Azure PowerShell. This is configurable using a `bicepconfig.json` file.
@@ -90,7 +90,7 @@ Start working with your template in VSCode
 - Open your downloaded template folder by clicking `File -> Open folder`, browse to, and select your folder.
 - In the explorer sidebar, right click `template.json` and select `Decompile into Bicep`. This will add a new file to your folder named `template.bicep`
 
-> **Note:** If no explorer sidebar is visible, you can open it by clicking the icon with two pages seen below, or click `View -> Explorer`, Or `Ctrl+Shift+E (Windows)`, or `Shift+Command+E (macOS)`
+> **Note:** If no explorer sidebar is visible, you can open it by clicking the icon with two pages seen below, or click `View -> Explorer`, or `Ctrl+Shift+E (Windows)`, or `Shift+Command+E (macOS)`
 
 ![Decompile into bicep in the explorer sidebar](./images/decompileSidebar.png)
 
@@ -120,7 +120,7 @@ Finding allowed and default values can be done in multiple ways, and there will 
 
 #### Using the documentation
 
-- Hover your mouse over the _name_ of the resource you're interested in to get help on.
+- Hover your mouse over the resource identifier _name_ of the resource you're interested in to get help on, it's the first segment after the `resource` keyword.
 - Click the `View Type Documentation` link to open the online documentation in your default browser.
 
 ![View type documentation from the VSCode plugin](./images/hoverViewTypeDocumentation.png)
@@ -153,7 +153,7 @@ In order to make the template easier to reuse there are some values that the exp
 
 #### Container name
 
-In our template we have one container set up. The export hard coded this container name as `mycontainer`.
+In our template we have one storage container defined. The template export hard coded this container name as `mycontainer`.
 
 In order to make the template reusable, change the template so the end user can set this value.
 
@@ -240,3 +240,5 @@ var globalyUniqueSAName = take('${unique}${saName}', 24)
 // ----
 name: globalyUniqueSAName
 ```
+
+That's it, you have created your first template by exporting an existing resource from Azure and modified the generated template. In the next lab you will be creating a template from scratch.
