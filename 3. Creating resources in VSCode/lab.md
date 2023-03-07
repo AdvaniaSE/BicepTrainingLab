@@ -10,21 +10,21 @@ There are a number of tools built in to the bicep extension that helps you creat
 - Visualizer
 - Parameter file generating
 
-You can find most of them by opening the Command palette (`view -> Command palette`, `Ctrl+Shift+P`, or `F1`), or using IntelliSense (`Ctrl+Space`)
+You can find most of them by opening the Command palette (`view -> Command palette`, `Ctrl+Shift+P`, `(macOS: Cmd⌘ + Shift + P)` or `F1`), or using IntelliSense (`Ctrl+Space`)
 
-> Hint: VSCode also comes with a number of built in keyboard shortcuts that helps you write code. You can get a list of them for your system by clicking `Help -> Keyboard shortcuts reference` or `Ctrl+K -> Ctrl+R`
+> Hint: VSCode also comes with a number of built in keyboard shortcuts that helps you write code. You can get a list of them for your system by clicking `Help -> Keyboard shortcuts reference` or `Ctrl+K -> Ctrl+R`, `(macOS: Cmd+K -> Cmd+R)`
 
 ## Creating a storage account using Visual Studio Code snippets
 
-Use the build in snippets to create a `Storage account` resource with the required properties
+Use the built-in snippets to create a `Storage account` resource with the required properties
 
-- Open a new tab in VSCode (`Ctrl+N`) and use the command palette to set the language mode to `Bicep`
+- Open a new tab in VSCode (`Ctrl+N`, `(macOS: Cmd⌘+N)`) and use the command palette to set the language mode to `Bicep`. Alternatively create a new file with the `.bicep` file extension.
 - In the code window, type `res` to get a list of resource snippets. Continue to type, or scroll down and select the `res-storage` snippet
 
 ![using the built in snippets to create a basic resource](./images/resStorageSnippet.gif)
 
 - Create a parameter for the `Name` key. It should be mandatory input when deploying the template.
-- Create a parameter for the `Location` key. It should use the `resourceGroup()` function as default to deploy to the same location as the resource group.
+- Create a parameter for the `Location` key. It should use the `resourceGroup().location` function as default to deploy to the same location as the resource group.
 
 ## IntelliSense
 
@@ -66,13 +66,13 @@ Use the `required properties` function to create a `blobService` resource, and s
 
 Before moving on we should make sure your code is formatted in an easy readable and standardized way. Fortunately VSCode has built in tools for this as well.
 
-Simply open the Command palette, and search for `format document`, or click `Shift+Alt+F`
+Simply open the Command palette, and search for `format document`, or click `Shift+Alt+F`, (`macOS: Shift+Option+F`)
 
 ![The auto format doing its work](./images/autoFormatDocument.gif)
 
 ## Visualizer
 
-So far we created two resources: A parent, the storage account, and a child, the blob service. We can see the relationship between these using the VSCode visualizer. Open it by clicking the visualizer button in the top right corner of your VSCode template window, clicking `Ctrl+K -> v`, or opening the command palette and search for `bicep: visualizer`
+So far we created two resources: A parent, the storage account, and a child, the blob service. We can see the relationship between these using the VSCode visualizer. Open it by clicking the visualizer button in the top right corner of your VSCode template window, clicking `Ctrl+K -> V`, `macOS:Cmd+K -> V` or opening the command palette and search for `bicep: visualizer`
 
 ![the visualizer button](./images/visualizerButton.png)
 
